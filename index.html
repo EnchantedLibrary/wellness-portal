@@ -1,0 +1,993 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Weight Loss Portal | Enchanted Medical Aesthetics</title>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Calibri:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --grey:#404040;
+  --gold:#B9A473;
+  --gold-dark:#9a8252;
+  --gold-light:#f0e9d8;
+  --nude:#F5F1EA;
+  --lightgrey:#F8F8F9;
+  --white:#ffffff;
+  --border:#e4ddd0;
+  --text:#404040;
+  --text-light:#7a7060;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Calibri',Arial,sans-serif;background:var(--nude);color:var(--text);min-height:100vh}
+
+/* GATE */
+.gate{position:fixed;inset:0;background:var(--grey);display:flex;align-items:center;justify-content:center;z-index:999;flex-direction:column;gap:1.5rem;padding:2rem}
+.gate.hidden{display:none}
+.gate-logo{font-family:'EB Garamond',Georgia,serif;font-size:clamp(28px,6vw,48px);font-weight:400;color:var(--gold);letter-spacing:.05em;text-align:center;line-height:1.1}
+.gate-logo span{display:block;font-size:clamp(11px,2vw,14px);letter-spacing:.2em;color:rgba(185,164,115,.6);font-family:'Calibri',sans-serif;font-weight:300;margin-top:.35rem}
+.gate-sub{font-size:14px;color:rgba(255,255,255,.5);text-align:center;font-family:'Calibri',sans-serif}
+.gate-input{padding:.7rem 1.25rem;border:1px solid rgba(185,164,115,.4);border-radius:4px;background:rgba(255,255,255,.06);color:var(--white);font-family:'Calibri',sans-serif;font-size:1rem;outline:none;width:100%;max-width:300px;text-align:center;letter-spacing:.08em;transition:border-color .15s}
+.gate-input:focus{border-color:var(--gold)}
+.gate-input::placeholder{color:rgba(255,255,255,.25);letter-spacing:.05em}
+.gate-btn{padding:.7rem 2rem;background:var(--gold);color:var(--grey);border:none;border-radius:4px;font-family:'Calibri',sans-serif;font-size:.95rem;font-weight:600;cursor:pointer;width:100%;max-width:300px;letter-spacing:.04em;transition:background .15s}
+.gate-btn:hover{background:#cdb48a}
+.gate-error{font-size:13px;color:#e07070;display:none}
+.gate-error.show{display:block}
+
+/* PORTAL */
+.portal{display:none;flex-direction:column;min-height:100vh}
+.portal.show{display:flex}
+
+/* HEADER */
+header{background:var(--grey);padding:1rem 2rem;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;border-bottom:1px solid rgba(185,164,115,.2)}
+.header-logo{font-family:'EB Garamond',Georgia,serif;font-size:22px;color:var(--gold);letter-spacing:.05em}
+.header-logo span{display:block;font-size:10px;letter-spacing:.18em;color:rgba(185,164,115,.55);font-family:'Calibri',sans-serif;font-weight:300;margin-top:1px}
+.header-right{display:flex;align-items:center;gap:1rem}
+.logout-btn{font-size:11px;color:rgba(255,255,255,.4);background:none;border:1px solid rgba(255,255,255,.15);border-radius:3px;padding:4px 10px;cursor:pointer;font-family:'Calibri',sans-serif;transition:all .15s}
+.logout-btn:hover{color:var(--gold);border-color:rgba(185,164,115,.4)}
+
+/* WELCOME BAND */
+.welcome-band{background:var(--gold);padding:.6rem 2rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.5rem}
+.welcome-text{font-size:13px;color:var(--grey);font-weight:600;letter-spacing:.03em}
+.location-pills{display:flex;gap:.5rem}
+.pill{font-size:11px;background:rgba(64,64,64,.12);color:var(--grey);padding:3px 10px;border-radius:20px;font-weight:600;letter-spacing:.04em}
+
+/* NAV TABS */
+.tab-nav{background:var(--white);border-bottom:2px solid var(--border);padding:0 2rem;display:flex;gap:0;overflow-x:auto}
+.tab-btn{padding:.85rem 1.25rem;font-family:'Calibri',sans-serif;font-size:.88rem;font-weight:600;color:var(--text-light);background:none;border:none;border-bottom:3px solid transparent;margin-bottom:-2px;cursor:pointer;transition:all .15s;white-space:nowrap;letter-spacing:.02em}
+.tab-btn:hover{color:var(--gold)}
+.tab-btn.active{color:var(--gold);border-bottom-color:var(--gold)}
+
+/* MAIN */
+main{max-width:900px;margin:0 auto;padding:2rem 1.5rem 4rem;width:100%}
+.tab-content{display:none}
+.tab-content.active{display:block}
+
+/* SECTION HEADING */
+.section-head{margin-bottom:1.5rem}
+.section-head h2{font-family:'EB Garamond',Georgia,serif;font-size:clamp(1.4rem,3vw,2rem);font-weight:400;color:var(--grey);line-height:1.2;margin-bottom:.35rem}
+.section-head p{font-size:.92rem;color:var(--text-light);line-height:1.65;max-width:620px}
+
+/* CALCULATOR */
+.calc-card{background:var(--white);border:1px solid var(--border);border-radius:8px;overflow:hidden;margin-bottom:1.25rem}
+.calc-card-head{background:var(--grey);padding:.85rem 1.25rem;font-family:'EB Garamond',Georgia,serif;font-size:1.1rem;color:var(--gold);font-weight:400;letter-spacing:.02em}
+.calc-body{padding:1.25rem;display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
+@media(max-width:560px){.calc-body{grid-template-columns:1fr}}
+.field{margin-bottom:.85rem}
+.field label{display:block;font-size:.82rem;font-weight:600;color:var(--text);margin-bottom:.35rem;letter-spacing:.02em}
+.field select,.field input{width:100%;padding:.6rem .85rem;border:1px solid var(--border);border-radius:4px;font-family:'Calibri',sans-serif;font-size:.92rem;color:var(--text);background:var(--lightgrey);outline:none;transition:border-color .15s;-webkit-appearance:none}
+.field select:focus,.field input:focus{border-color:var(--gold)}
+.field .note{font-size:.75rem;color:var(--text-light);margin-top:.25rem}
+.week-btns{display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:.75rem}
+.wk-btn{padding:.3rem .7rem;border:1px solid var(--border);border-radius:20px;background:var(--lightgrey);font-family:'Calibri',sans-serif;font-size:.78rem;cursor:pointer;color:var(--text-light);transition:all .15s}
+.wk-btn:hover{border-color:var(--gold);color:var(--gold)}
+.wk-btn.active{background:var(--gold);border-color:var(--gold);color:var(--grey);font-weight:600}
+.result-box{background:var(--grey);border-radius:8px;padding:1.25rem;text-align:center}
+.result-units{font-family:'EB Garamond',Georgia,serif;font-size:3.5rem;color:var(--gold);line-height:1;font-weight:400}
+.result-label{font-size:.72rem;letter-spacing:.1em;color:rgba(255,255,255,.5);margin-top:.35rem;font-weight:600}
+.result-ml{font-size.9rem;color:rgba(255,255,255,.6);margin-top:.35rem;font-family:'Calibri',sans-serif;font-size:.9rem}
+.result-draw{background:var(--gold-light);border:1px solid var(--gold);border-radius:6px;padding:.65rem 1rem;margin-top:.85rem;font-size:.85rem;color:var(--grey);line-height:1.6}
+.syringe-bar-wrap{margin-top:.85rem}
+.syringe-label{font-size:.72rem;color:rgba(255,255,255,.4);margin-bottom:.35rem;letter-spacing:.05em}
+.syringe-bar{background:rgba(255,255,255,.12);border-radius:3px;height:8px;overflow:hidden}
+.syringe-fill{background:var(--gold);height:100%;border-radius:3px;transition:width .5s ease;min-width:2px}
+.syringe-scale{display:flex;justify-content:space-between;margin-top:3px;font-size:.65rem;color:rgba(255,255,255,.3);font-family:'Calibri',sans-serif}
+
+/* NOTE BOX */
+.note-box{background:var(--gold-light);border-left:3px solid var(--gold);padding:.85rem 1rem;border-radius:0 6px 6px 0;font-size:.85rem;color:var(--grey);line-height:1.7;margin-bottom:1.25rem}
+.warn-box{background:#fdf0ee;border-left:3px solid #c07060;padding:.85rem 1rem;border-radius:0 6px 6px 0;font-size:.85rem;color:#7a3a2a;line-height:1.7;margin-bottom:1.25rem}
+
+/* FAQ */
+.faq-item{border-bottom:1px solid var(--border)}
+.faq-btn{width:100%;display:flex;justify-content:space-between;align-items:center;padding:1rem 0;background:none;border:none;font-family:'Calibri',sans-serif;font-size:.95rem;font-weight:600;color:var(--text);cursor:pointer;text-align:left;gap:1rem}
+.faq-btn .icon{font-size:1.2rem;color:var(--gold);flex-shrink:0;transition:transform .2s}
+.faq-btn.open .icon{transform:rotate(45deg)}
+.faq-answer{display:none;padding:0 0 1rem;font-size:.88rem;color:var(--text-light);line-height:1.75;max-width:680px}
+.faq-answer.show{display:block}
+
+/* RESOURCES */
+.resources-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1rem;margin-bottom:1.5rem}
+.resource-card{background:var(--white);border:1px solid var(--border);border-radius:8px;padding:1.1rem;display:flex;flex-direction:column;gap:.6rem;transition:border-color .15s,box-shadow .15s}
+.resource-card:hover{border-color:var(--gold);box-shadow:0 2px 12px rgba(185,164,115,.15)}
+.resource-icon{font-size:1.6rem}
+.resource-name{font-size:.88rem;font-weight:600;color:var(--text);line-height:1.3}
+.resource-desc{font-size:.78rem;color:var(--text-light);line-height:1.5;flex:1}
+.resource-btn{padding:.4rem .85rem;background:var(--gold);color:var(--grey);border:none;border-radius:3px;font-family:'Calibri',sans-serif;font-size:.78rem;font-weight:600;cursor:pointer;text-align:center;text-decoration:none;display:inline-block;transition:background .15s}
+.resource-btn:hover{background:#cdb48a}
+.coming-soon{opacity:.55;pointer-events:none}
+.coming-soon .resource-btn{background:var(--border);color:var(--text-light)}
+
+/* CONTACT */
+.contact-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:1.5rem;margin-bottom:1.5rem}
+@media(max-width:560px){.contact-grid{grid-template-columns:1fr}}
+.contact-card{background:var(--white);border:1px solid var(--border);border-radius:8px;padding:1.25rem}
+.contact-card h3{font-family:'EB Garamond',Georgia,serif;font-size:1.1rem;color:var(--grey);margin-bottom:.35rem;font-weight:400}
+.contact-card p{font-size:.85rem;color:var(--text-light);line-height:1.65;margin-bottom:.85rem}
+.contact-link{overflow-wrap:anywhere;display:inline-flex;align-items:center;gap:.4rem;padding:.6rem 1.1rem;background:var(--gold);color:var(--grey);text-decoration:none;border-radius:4px;font-size:.85rem;font-weight:600;font-family:'Calibri',sans-serif;transition:background .15s}
+.contact-link:hover{background:#cdb48a}
+.location-block{background:var(--nude);border:1px solid var(--border);border-radius:8px;padding:1.1rem;margin-bottom:.75rem}
+.location-block h4{font-size:.82rem;font-weight:600;color:var(--text);margin-bottom:.25rem;letter-spacing:.03em}
+.location-block p{font-size:.82rem;color:var(--text-light);line-height:1.6}
+.location-block a{color:var(--gold-dark);text-decoration:none;font-weight:600}
+
+footer{background:var(--grey);padding:1.25rem 2rem;text-align:center;font-size:.75rem;color:rgba(255,255,255,.3);font-family:'Calibri',sans-serif;margin-top:auto}
+</style>
+</head>
+<body>
+
+<!-- GATE -->
+<div class="gate" id="gate">
+  <div class="gate-logo">Enchanted<span>Medical Aesthetics</span></div>
+  <div class="gate-sub">Weight Loss Patient Portal — Enter your access code</div>
+  <input type="password" class="gate-input" id="gate-input" placeholder="Access code" onkeydown="if(event.key==='Enter')checkPass()">
+  <button class="gate-btn" onclick="checkPass()">Enter Portal</button>
+  <div class="gate-error" id="gate-error">Incorrect code. Please try again.</div>
+</div>
+
+<!-- PORTAL -->
+<div class="portal" id="portal">
+  <header>
+    <div class="header-logo">Enchanted<span>Medical Aesthetics</span></div>
+    <div class="header-right">
+      <button class="logout-btn" onclick="logout()">Log Out</button>
+    </div>
+  </header>
+
+  <div class="welcome-band">
+    <div class="welcome-text">Weight Loss Patient Portal</div>
+    <div class="location-pills">
+      <span class="pill">Ormond Beach</span>
+      <span class="pill">DeLand</span>
+      <span class="pill">Palm Coast</span>
+    </div>
+  </div>
+
+  <div class="tab-nav">
+    <button class="tab-btn active" onclick="showTab('calculator',this)">💉 Dosing Calculator</button>
+    <button class="tab-btn" onclick="showTab('wellness',this)">💧 Wellness</button>
+    <button class="tab-btn" onclick="showTab('resources',this)">📚 Resources</button>
+    <button class="tab-btn" onclick="showTab('faq',this)">FAQ</button>
+    <button class="tab-btn" onclick="showTab('contact',this)">Contact Us</button>
+  </div>
+
+  <main>
+
+    <!-- CALCULATOR TAB -->
+    <div class="tab-content active" id="tab-calculator">
+      <div class="section-head">
+        <h2>Your Dosing Calculator</h2>
+        <p>Select your medication and your current week to see exactly how many units to draw. Always confirm with your provider if you have questions.</p>
+      </div>
+
+      <div class="calc-card">
+        <div class="calc-card-head">Semaglutide — 2.5 mg/mL &nbsp;·&nbsp; 100 units = 1 mL &nbsp;·&nbsp; 1 unit = 0.025 mg</div>
+        <div style="padding:.6rem 1.25rem;background:rgba(255,255,255,.04);border-bottom:1px solid var(--border);display:flex;gap:.5rem;align-items:center">
+          <span style="font-size:.75rem;color:var(--text-light);font-weight:600">Protocol:</span>
+          <button id="sema-std-btn" onclick="setSemaMode(false)" style="padding:.3rem .85rem;border-radius:20px;border:1.5px solid var(--gold);background:var(--gold);color:var(--grey);font-size:.78rem;font-weight:700;cursor:pointer;font-family:'Calibri',sans-serif">Standard</button>
+          <button id="sema-micro-btn" onclick="setSemaMode(true)" style="padding:.3rem .85rem;border-radius:20px;border:1.5px solid var(--border);background:transparent;color:var(--text-light);font-size:.78rem;font-weight:600;cursor:pointer;font-family:'Calibri',sans-serif">Microdosing</button>
+          <span id="sema-mode-label" style="font-size:.72rem;color:var(--text-light);margin-left:.25rem"></span>
+        </div>
+        <div class="calc-body">
+          <div>
+            <div class="field">
+              <label>Your Current Week</label>
+              <div class="week-btns" id="sema-weeks"></div>
+            </div>
+            <div class="note-box" style="margin-top:.5rem">
+              📋 Semaglutide is a <strong>liquid vial</strong>. Inject once weekly, same day each week. Rotate injection sites (abdomen, thigh, upper arm).
+            </div>
+            <div class="warn-box" style="margin-top:.6rem;font-size:.82rem">
+              👩‍⚕️ <strong>Your provider guides all dosing decisions.</strong> The schedule shown is a reference — your individual dose, timing, and titration are determined by your provider.<br><br>
+              <strong>Standard dosing:</strong> Stay on each dose for a minimum of 2 weeks before considering a tier up.<br>
+              <strong>Microdosing:</strong> May titrate after 1 week if well tolerated — the purpose of microdosing is to minimize symptoms, not to slow progress. Titrate up when symptoms are manageable.<br><br>
+              If you are losing 1–2 lbs per week and not feeling hungry, <strong>do not increase your dose.</strong> The goal is to stay on the lowest dose that is working for you.
+            </div>
+          </div>
+          <div>
+            <div class="result-box" id="sema-result">
+              <div class="result-units" id="sema-units">—</div>
+              <div class="result-label">UNITS TO DRAW</div>
+              <div class="result-ml" id="sema-ml"></div>
+              <div class="result-draw" id="sema-draw" style="display:none"></div>
+              <div style="margin-top:1rem">
+                <svg id="sema-syringe" width="100%" viewBox="0 0 260 80" xmlns="http://www.w3.org/2000/svg" style="display:block"></svg>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="calc-card">
+        <div class="calc-card-head">Tirzepatide — 10 mg/mL &nbsp;·&nbsp; 100 units = 1 mL &nbsp;·&nbsp; 1 unit = 0.1 mg</div>
+        <div style="padding:.6rem 1.25rem;background:rgba(255,255,255,.04);border-bottom:1px solid var(--border);display:flex;gap:.5rem;align-items:center">
+          <span style="font-size:.75rem;color:var(--text-light);font-weight:600">Protocol:</span>
+          <button id="tirz-std-btn" onclick="setTirzMode(false)" style="padding:.3rem .85rem;border-radius:20px;border:1.5px solid var(--gold);background:var(--gold);color:var(--grey);font-size:.78rem;font-weight:700;cursor:pointer;font-family:'Calibri',sans-serif">Standard</button>
+          <button id="tirz-micro-btn" onclick="setTirzMode(true)" style="padding:.3rem .85rem;border-radius:20px;border:1.5px solid var(--border);background:transparent;color:var(--text-light);font-size:.78rem;font-weight:600;cursor:pointer;font-family:'Calibri',sans-serif">Microdosing</button>
+          <span id="tirz-mode-label" style="font-size:.72rem;color:var(--text-light);margin-left:.25rem"></span>
+        </div>
+        <div class="calc-body">
+          <div>
+            <div class="field">
+              <label>Your Current Week</label>
+              <div class="week-btns" id="tirz-weeks"></div>
+            </div>
+            <div class="note-box" style="margin-top:.5rem">
+              📋 Tirzepatide is a <strong>liquid vial</strong>. Inject once weekly. Can be taken with or without food. If changing your injection day, make sure your previous dose was at least 3 days before.
+            </div>
+            <div class="warn-box" style="margin-top:.6rem;font-size:.82rem">
+              👩‍⚕️ <strong>Your provider guides all dosing decisions.</strong> The schedule shown is a reference — your individual dose, timing, and titration are determined by your provider.<br><br>
+              <strong>Standard dosing:</strong> Stay on each dose for a minimum of 2 weeks before considering a tier up.<br>
+              <strong>Microdosing:</strong> May titrate after 1 week if well tolerated — the purpose of microdosing is to minimize symptoms, not to slow progress. Titrate up when symptoms are manageable.<br><br>
+              If you are losing 1–2 lbs per week and not feeling hungry, <strong>do not increase your dose.</strong> The goal is to stay on the lowest dose that is working for you.
+            </div>
+          </div>
+          <div>
+            <div class="result-box" id="tirz-result">
+              <div class="result-units" id="tirz-units">—</div>
+              <div class="result-label">UNITS TO DRAW</div>
+              <div class="result-ml" id="tirz-ml"></div>
+              <div class="result-draw" id="tirz-draw" style="display:none"></div>
+              <div style="margin-top:1rem">
+                <svg id="tirz-syringe" width="100%" viewBox="0 0 260 80" xmlns="http://www.w3.org/2000/svg" style="display:block"></svg>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="warn-box">⚠ <strong>Never increase your dose on your own.</strong> Dose changes are made by your provider only. If you are experiencing significant side effects, stay at your current dose and contact us before your next injection.</div>
+    </div>
+
+    <!-- WELLNESS TAB -->
+    <div class="tab-content" id="tab-wellness">
+      <div class="section-head">
+        <h2>Wellness Essentials</h2>
+        <p>Two of the most important things you can do while on your GLP-1 program — hydrate properly and maintain regular bowel movements. Both directly affect how well you feel and how your body responds to the medication.</p>
+      </div>
+
+      <!-- WATER CALCULATOR -->
+      <div class="calc-card" style="margin-bottom:1.25rem">
+        <div class="calc-card-head">💧 Daily Water Goal Calculator</div>
+        <div class="calc-body">
+          <div>
+            <div class="field">
+              <label>Your Body Weight (lbs)</label>
+              <input type="number" id="weight-input" placeholder="e.g. 180" min="80" max="500" oninput="calcWater()">
+              <div class="note" style="margin-top:.35rem">GLP-1 medications slow digestion and increase dehydration risk. Drinking enough water is essential — not optional.</div>
+            </div>
+            <div class="note-box" style="margin-top:.75rem">
+              <strong>The formula:</strong> Body weight (lbs) ÷ 2 = daily water goal in ounces.<br>
+              Example: 180 lbs ÷ 2 = <strong>90 oz of water per day</strong>
+            </div>
+          </div>
+          <div>
+            <div class="result-box" id="water-result">
+              <div style="font-size:.8rem;letter-spacing:.08em;color:rgba(255,255,255,.4);text-transform:uppercase;margin-bottom:.5rem">Your Daily Water Goal</div>
+              <div class="result-units" id="water-oz" style="font-size:3rem">—</div>
+              <div class="result-label">OUNCES PER DAY</div>
+              <div class="result-ml" id="water-cups" style="margin-top:.5rem"></div>
+              <div class="result-ml" id="water-bottles" style="margin-top:.25rem"></div>
+              <div id="water-tips" style="display:none;margin-top:.85rem;background:rgba(185,164,115,.15);border-radius:6px;padding:.65rem .85rem;font-size:.8rem;color:var(--gold-light);line-height:1.7;text-align:left"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- BOWEL REGIMEN -->
+      <div class="calc-card">
+        <div class="calc-card-head">🌿 Bowel Regimen — Constipation Prevention</div>
+        <div style="padding:1.25rem">
+          <div class="warn-box">⚠ <strong>Constipation is one of the most common side effects of GLP-1 medications.</strong> Semaglutide and Tirzepatide slow gastric emptying and gut motility (peristalsis). This is expected — but it must be managed proactively from Day 1. Do not wait until you are constipated to start the regimen below.</div>
+
+          <div style="margin-bottom:1.25rem">
+            <div style="font-family:'EB Garamond',Georgia,serif;font-size:1.05rem;color:var(--grey);font-weight:400;margin-bottom:.75rem;padding-bottom:.4rem;border-bottom:2px solid var(--gold)">What is constipation?</div>
+            <p style="font-size:.88rem;color:var(--text-light);line-height:1.75">Constipation is when you are unable to pass a stool or have very hard stools. Most people have bowel movements every 1–3 days. If you are moving less frequently than usual <em>and</em> having hard stools, you are likely constipated. Contact us if you have gone more than 72 hours without a bowel movement.</p>
+          </div>
+
+          <!-- STEP BY STEP -->
+          <div style="font-family:'EB Garamond',Georgia,serif;font-size:1.05rem;color:var(--grey);margin-bottom:.75rem;padding-bottom:.4rem;border-bottom:2px solid var(--gold)">Step-by-Step Prevention Protocol</div>
+
+          <div style="display:flex;flex-direction:column;gap:.75rem;margin-bottom:1.25rem">
+            <div style="background:var(--nude);border:1px solid var(--border);border-radius:8px;padding:1rem;display:flex;gap:.85rem;align-items:flex-start">
+              <div style="background:var(--gold);color:var(--grey);font-weight:700;font-size:.85rem;border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;flex-shrink:0">1</div>
+              <div>
+                <div style="font-weight:700;font-size:.9rem;color:var(--grey);margin-bottom:.25rem">Day 1 — Start a stool softener immediately</div>
+                <p style="font-size:.84rem;color:var(--text-light);line-height:1.65"><strong>Senokot-S</strong> (Senna + Docusate) — 1 to 2 tablets with plenty of fluids, 2 to 3 times per day. Start this on the same day as your first injection. Do not wait for symptoms.</p>
+              </div>
+            </div>
+            <div style="background:var(--nude);border:1px solid var(--border);border-radius:8px;padding:1rem;display:flex;gap:.85rem;align-items:flex-start">
+              <div style="background:var(--gold);color:var(--grey);font-weight:700;font-size:.85rem;border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;flex-shrink:0">2</div>
+              <div>
+                <div style="font-weight:700;font-size:.9rem;color:var(--grey);margin-bottom:.25rem">48 hours — No bowel movement? Add one of the following:</div>
+                <ul style="font-size:.84rem;color:var(--text-light);line-height:1.8;margin-left:1rem">
+                  <li><strong>Milk of Magnesia</strong> — 1 to 2 tablespoons, 1 to 2 times per day</li>
+                  <li><strong>Dulcolax 5 mg tablet</strong> — 1 to 2 tablets</li>
+                  <li><strong>Miralax powder</strong> — as directed on package</li>
+                </ul>
+                <div style="margin-top:.5rem;font-size:.82rem;color:var(--rose);font-weight:600">📞 Call us: (386) 317-1449 · Text: (706) 710-4015</div>
+              </div>
+            </div>
+            <div style="background:#fdf0ee;border:1.5px solid #c07060;border-radius:8px;padding:1rem;display:flex;gap:.85rem;align-items:flex-start">
+              <div style="background:#c07060;color:white;font-weight:700;font-size:.85rem;border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;flex-shrink:0">3</div>
+              <div>
+                <div style="font-weight:700;font-size:.9rem;color:#7a3a2a;margin-bottom:.25rem">72 hours — No bowel movement? Call us first, then try one of:</div>
+                <ul style="font-size:.84rem;color:#7a3a2a;line-height:1.8;margin-left:1rem">
+                  <li><strong>Dulcolax 10 mg suppository</strong></li>
+                  <li><strong>Magnesium Citrate</strong> — 8 oz</li>
+                  <li><strong>Mineral oil</strong> — 1 to 2 tablespoons</li>
+                  <li><strong>Fleet enema</strong> — may need to repeat</li>
+                </ul>
+                <div style="margin-top:.5rem;font-size:.82rem;color:#7a3a2a;font-weight:600">⚠ Do not attempt these without speaking to your provider first.</div>
+              </div>
+            </div>
+          </div>
+
+              <div class="note-box">
+            💡 <strong>Daily prevention habits:</strong> Drink at least half your body weight in ounces of water daily · Aim for 25–30g of fiber per day (fruits, vegetables, whole grains, legumes) · Walk at least 30 minutes daily · Eat smaller, more frequent meals · Track your bowel movements — let us know at your next visit if you are having ongoing issues.
+          </div>
+        </div>
+      </div>
+
+      <!-- NAUSEA MANAGEMENT -->
+      <div class="calc-card" style="margin-top:1.25rem">
+        <div class="calc-card-head">🤢 Nausea Management</div>
+        <div style="padding:1.25rem">
+          <div class="note-box">💊 <strong>Every patient in our program receives a Zofran (ondansetron) prescription.</strong> This is sent to your pharmacy of choice at program start. Fill it right away — have it on hand before your first injection so you are prepared.</div>
+
+          <div style="font-family:'EB Garamond',Georgia,serif;font-size:1.05rem;color:var(--grey);margin-bottom:.75rem;padding-bottom:.4rem;border-bottom:2px solid var(--gold)">Why nausea happens</div>
+          <p style="font-size:.88rem;color:var(--text-light);line-height:1.75;margin-bottom:1.1rem">GLP-1 medications slow stomach emptying — this is part of how they reduce appetite and promote weight loss. In the early weeks, your body is still adjusting to this change, which can cause nausea. For most patients it is mild and improves significantly within the first 4–8 weeks. Nausea is most common in the 24–48 hours after your injection and typically lessens as your dose stabilizes.</p>
+
+          <div style="font-family:'EB Garamond',Georgia,serif;font-size:1.05rem;color:var(--grey);margin-bottom:.75rem;padding-bottom:.4rem;border-bottom:2px solid var(--gold)">Your Zofran (Ondansetron) Prescription</div>
+          <div style="background:var(--nude);border:1px solid var(--border);border-radius:8px;padding:1rem;margin-bottom:1rem">
+            <div style="font-weight:700;font-size:.9rem;color:var(--grey);margin-bottom:.5rem">How to use Zofran for nausea</div>
+            <ul style="font-size:.84rem;color:var(--text-light);line-height:1.85;margin-left:1rem">
+              <li>Take <strong>4 mg or 8 mg</strong> as prescribed — place under your tongue or swallow with water</li>
+              <li>Take at the <strong>first sign of nausea</strong> — do not wait until it becomes severe</li>
+              <li>May be taken up to every 6–8 hours as needed</li>
+              <li>Can be taken <strong>before your injection</strong> if you know nausea is likely</li>
+              <li>Safe to use with food or on an empty stomach</li>
+            </ul>
+          </div>
+
+          <div style="font-family:'EB Garamond',Georgia,serif;font-size:1.05rem;color:var(--grey);margin-bottom:.75rem;padding-bottom:.4rem;border-bottom:2px solid var(--gold)">Additional tips to reduce nausea</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin-bottom:1rem">
+            <div style="background:var(--nude);border:1px solid var(--border);border-radius:8px;padding:.9rem">
+              <div style="font-weight:700;font-size:.85rem;color:var(--grey);margin-bottom:.4rem">🍽 Eating habits</div>
+              <ul style="font-size:.82rem;color:var(--text-light);line-height:1.75;margin-left:.85rem">
+                <li>Eat small, frequent meals — 4 to 5 small meals rather than 2 to 3 large ones</li>
+                <li>Eat slowly and stop when full — do not overeat</li>
+                <li>Avoid fatty, greasy, or fried foods</li>
+                <li>Avoid spicy foods until nausea settles</li>
+                <li>Avoid carbonated drinks</li>
+                <li>Do not lie down immediately after eating</li>
+              </ul>
+            </div>
+            <div style="background:var(--nude);border:1px solid var(--border);border-radius:8px;padding:.9rem">
+              <div style="font-weight:700;font-size:.85rem;color:var(--grey);margin-bottom:.4rem">💊 Supplements & remedies</div>
+              <ul style="font-size:.82rem;color:var(--text-light);line-height:1.75;margin-left:.85rem">
+                <li><strong>Vitamin B6 (Pyridoxine)</strong> 25–50 mg daily — discuss dose with your provider</li>
+                <li>Ginger tea or ginger chews</li>
+                <li>Peppermint tea</li>
+                <li>Small amounts of bland foods (crackers, toast, rice)</li>
+                <li>Stay upright for 30 minutes after eating</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="warn-box">⚠ <strong>Contact us if:</strong> Nausea is severe or does not improve with Zofran · You are unable to keep fluids down for more than 24 hours · You have signs of dehydration (dry mouth, dizziness, dark urine, no urination) · Nausea is accompanied by severe stomach pain. <strong>Call 911 if symptoms are severe.</strong></div>
+        </div>
+      </div>
+      <!-- EXERCISE -->
+      <div class="calc-card" style="margin-top:1.25rem">
+        <div class="calc-card-head">🏋️ Exercise — Why It's Non-Negotiable on GLP-1s</div>
+        <div style="padding:1.25rem">
+
+          <div class="warn-box">⚠ <strong>GLP-1 medications reduce your appetite significantly — which means you will eat less.</strong> When you eat less without exercising, your body loses both fat AND muscle. Losing muscle lowers your Basal Metabolic Rate (BMR), making it harder to keep the weight off long term. Exercise is what protects your metabolism while you lose weight.</div>
+
+          <div style="font-family:'EB Garamond',Georgia,serif;font-size:1.05rem;color:var(--grey);margin-bottom:.75rem;padding-bottom:.4rem;border-bottom:2px solid var(--gold);margin-top:1.1rem">What happens to your BMR when you lose weight</div>
+          <p style="font-size:.88rem;color:var(--text-light);line-height:1.75;margin-bottom:1rem">Your BMR is the number of calories your body burns at rest just to keep you alive — breathing, circulation, cell repair. When you lose weight, your BMR naturally decreases because there is less body mass to maintain. This is normal. <strong>The problem is when muscle is lost alongside fat</strong> — muscle is metabolically active tissue, meaning it burns calories even when you are not moving. The more muscle you lose, the lower your BMR drops, and the fewer calories you burn at rest.<br><br>This is why many people regain weight after stopping GLP-1 medications — their BMR has dropped and their metabolism is slower than before they started. <strong>Resistance exercise is the most effective way to preserve muscle and protect your BMR during weight loss.</strong></p>
+
+          <div style="font-family:'EB Garamond',Georgia,serif;font-size:1.05rem;color:var(--grey);margin-bottom:.75rem;padding-bottom:.4rem;border-bottom:2px solid var(--gold)">Minimum weekly exercise recommendations</div>
+
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin-bottom:1rem">
+            <div style="background:var(--nude);border:1px solid var(--border);border-radius:8px;padding:1rem">
+              <div style="font-weight:700;font-size:.9rem;color:var(--grey);margin-bottom:.5rem">💪 Resistance / Strength Training</div>
+              <div style="font-size:.82rem;color:var(--gold-dark);font-weight:700;margin-bottom:.35rem">Minimum: 2× per week</div>
+              <ul style="font-size:.82rem;color:var(--text-light);line-height:1.75;margin-left:.85rem">
+                <li>Most important exercise type on GLP-1s</li>
+                <li>Preserves and builds lean muscle mass</li>
+                <li>Directly protects your BMR</li>
+                <li>Examples: weights, resistance bands, bodyweight (squats, push-ups, lunges)</li>
+                <li>20–45 minutes per session is sufficient</li>
+              </ul>
+            </div>
+            <div style="background:var(--nude);border:1px solid var(--border);border-radius:8px;padding:1rem">
+              <div style="font-weight:700;font-size:.9rem;color:var(--grey);margin-bottom:.5rem">🚶 Cardio / Aerobic Exercise</div>
+              <div style="font-size:.82rem;color:var(--gold-dark);font-weight:700;margin-bottom:.35rem">Minimum: 150 min/week moderate</div>
+              <ul style="font-size:.82rem;color:var(--text-light);line-height:1.75;margin-left:.85rem">
+                <li>Supports heart health and fat burning</li>
+                <li>Improves insulin sensitivity</li>
+                <li>Examples: brisk walking, cycling, swimming, elliptical</li>
+                <li>30 minutes daily walking is a great starting point</li>
+                <li>Can be broken into 10-minute increments</li>
+              </ul>
+            </div>
+          </div>
+
+          <div style="background:var(--nude);border:1px solid var(--border);border-radius:8px;padding:1rem;margin-bottom:1rem">
+            <div style="font-weight:700;font-size:.9rem;color:var(--grey);margin-bottom:.5rem">🥗 Protein + Exercise — the combination that protects your muscle</div>
+            <p style="font-size:.83rem;color:var(--text-light);line-height:1.7">Exercise alone is not enough — you must eat adequate protein for your body to build and maintain muscle. Aim for <strong>at least 1 gram of protein per pound of your goal body weight per day.</strong> Prioritize protein at every meal. On GLP-1 medications your appetite is reduced, so it takes intentional effort to hit your protein target. If you are not eating enough protein and not exercising, the weight you lose will come from both fat and muscle — setting you up for rebound.</p>
+          </div>
+
+          <div style="font-family:'EB Garamond',Georgia,serif;font-size:1.05rem;color:var(--grey);margin-bottom:.75rem;padding-bottom:.4rem;border-bottom:2px solid var(--gold)">If you are new to exercise</div>
+          <ul style="font-size:.85rem;color:var(--text-light);line-height:1.85;margin-left:1rem;margin-bottom:1rem">
+            <li>Start with 15–20 minute walks daily — build from there</li>
+            <li>Add 2 resistance sessions per week using light weights or bodyweight</li>
+            <li>Any movement is better than none — consistency matters more than intensity</li>
+            <li>GLP-1 medications improve energy over time — many patients find exercise gets easier as weight comes off</li>
+            <li>Listen to your body — nausea after eating can affect workout timing; wait 1–2 hours after meals</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- RESOURCES TAB -->
+    <div class="tab-content" id="tab-resources">
+      <div class="section-head">
+        <h2>Resources & Guides</h2>
+        <p>Everything you need to support your weight loss journey — nutrition guides, meal plans, and program information.</p>
+      </div>
+      <!-- MEDICATION GUIDES -->
+      <div style="font-family:'EB Garamond',Georgia,serif;font-size:1.1rem;color:var(--grey);margin-bottom:.75rem;padding-bottom:.35rem;border-bottom:2px solid var(--gold)">Medication Guides</div>
+      <div class="resources-grid" style="margin-bottom:1.5rem">
+        <div class="resource-card">
+          <div class="resource-icon">💉</div>
+          <div class="resource-name">Semaglutide Patient Information Sheet</div>
+          <div class="resource-desc">How Semaglutide works, side effects, storage, and what to expect.</div>
+          <a href="pdfs/Semaglutide-Patient-Information-Sheet-1.pdf" target="_blank" class="resource-btn">Download PDF</a>
+        </div>
+        <div class="resource-card">
+          <div class="resource-icon">💉</div>
+          <div class="resource-name">Semaglutide Dosing Schedule</div>
+          <div class="resource-desc">Week-by-week standard dosing guide for Semaglutide patients.</div>
+          <a href="pdfs/Semaglutide-Treatment-Dosage-Form.pdf" target="_blank" class="resource-btn">Download PDF</a>
+        </div>
+        <div class="resource-card">
+          <div class="resource-icon">💉</div>
+          <div class="resource-name">Tirzepatide Patient Information Sheet</div>
+          <div class="resource-desc">How Tirzepatide works, side effects, storage, and what to expect.</div>
+          <a href="pdfs/Tirzepatide-Patient-Information-Sheet-1.pdf" target="_blank" class="resource-btn">Download PDF</a>
+        </div>
+        <div class="resource-card">
+          <div class="resource-icon">💉</div>
+          <div class="resource-name">Tirzepatide Dosing Schedule</div>
+          <div class="resource-desc">Week-by-week standard dosing guide for Tirzepatide patients.</div>
+          <a href="pdfs/Tirzepatide-Treatment-Dosing-Schedule.pdf" target="_blank" class="resource-btn">Download PDF</a>
+        </div>
+        <div class="resource-card">
+          <div class="resource-icon">💊</div>
+          <div class="resource-name">What to Pair with GLP-1</div>
+          <div class="resource-desc">Supplements, vitamins, and lifestyle additions that support your program.</div>
+          <a href="pdfs/What-To-Pair-with-GLP-1-2.pdf" target="_blank" class="resource-btn">Download PDF</a>
+        </div>
+        <div class="resource-card">
+          <div class="resource-icon">📋</div>
+          <div class="resource-name">Weight Loss Consumer Bill of Rights</div>
+          <div class="resource-desc">Your rights as a weight loss program patient at Enchanted.</div>
+          <a href="pdfs/Weight-Loss-Consumer-Bill-of-Rights-1.pdf" target="_blank" class="resource-btn">Download PDF</a>
+        </div>
+        <div class="resource-card">
+          <div class="resource-icon">🩹</div>
+          <div class="resource-name">Subcutaneous Injection Guide</div>
+          <div class="resource-desc">Step-by-step self-injection technique with visuals.</div>
+          <a href="pdfs/Subcutaneous-Injections.pdf" target="_blank" class="resource-btn">Download PDF</a>
+        </div>
+      </div>
+
+      <!-- NUTRITION GUIDES -->
+      <div style="font-family:'EB Garamond',Georgia,serif;font-size:1.1rem;color:var(--grey);margin-bottom:.75rem;padding-bottom:.35rem;border-bottom:2px solid var(--gold)">Nutrition & Meal Planning</div>
+      <div class="resources-grid" style="margin-bottom:1.5rem">
+        <div class="resource-card">
+          <div class="resource-icon">🌿</div>
+          <div class="resource-name">Vitamins & Minerals Guide</div>
+          <div class="resource-desc">Complete guide to essential nutrients — by Dr. Bridget Martin.</div>
+          <a href="pdfs/Vitamins-and-Minerals-Guide1.pdf" target="_blank" class="resource-btn">Download PDF</a>
+        </div>
+        <div class="resource-card">
+          <div class="resource-icon">🥑</div>
+          <div class="resource-name">Guide to Fats</div>
+          <div class="resource-desc">Understanding healthy and unhealthy fats for weight loss.</div>
+          <a href="pdfs/Copy-of-Guide-to-Fats-compressed.pdf" target="_blank" class="resource-btn">Download PDF</a>
+        </div>
+        <div class="resource-card">
+          <div class="resource-icon">📊</div>
+          <div class="resource-name">Macronutrients & Calories</div>
+          <div class="resource-desc">Everything you need to know about macros and calorie balance.</div>
+          <a href="pdfs/Copy-of-All-you-need-to-know-about-MACRONUTRIENTS-and-CALORIES_1.pdf" target="_blank" class="resource-btn">Download PDF</a>
+        </div>
+        <div class="resource-card">
+          <div class="resource-icon">🥗</div>
+          <div class="resource-name">Mediterranean Meal Plan</div>
+          <div class="resource-desc">Anti-inflammatory 4-week meal plan to support weight loss.</div>
+          <a href="pdfs/Mediterranean-Meal-Plan-Template1.pdf" target="_blank" class="resource-btn">Download PDF</a>
+        </div>
+        <div class="resource-card">
+          <div class="resource-icon">🫐</div>
+          <div class="resource-name">Thyroid Meal Plan</div>
+          <div class="resource-desc">Nutrition plan designed to support thyroid health.</div>
+          <a href="pdfs/Copy-of-Thyroid-Meal-Plan-Template_compressed.pdf" target="_blank" class="resource-btn">Download PDF</a>
+        </div>
+        <div class="resource-card">
+          <div class="resource-icon">🥤</div>
+          <div class="resource-name">Smoothie Guide</div>
+          <div class="resource-desc">Simple, healthy smoothie recipes to keep you fueled.</div>
+          <a href="pdfs/SimpleHealthySmoothieGuide_compressed.pdf" target="_blank" class="resource-btn">Download PDF</a>
+        </div>
+        <div class="resource-card">
+          <div class="resource-icon">🍞</div>
+          <div class="resource-name">Guide to Carbs</div>
+          <div class="resource-desc">Everything you need to know about carbohydrates and how they affect weight loss.</div>
+          <a href="pdfs/Guide-to-Carbs_compressed.pdf" target="_blank" class="resource-btn">Download PDF</a>
+        </div>
+        <div class="resource-card">
+          <div class="resource-icon">🥩</div>
+          <div class="resource-name">Guide to Protein</div>
+          <div class="resource-desc">Why protein is essential on your GLP-1 program and how to hit your daily goal.</div>
+          <a href="pdfs/Copy-of-Guide-to-Protein-compressed.pdf" target="_blank" class="resource-btn">Download PDF</a>
+        </div>
+        <div class="resource-card">
+          <div class="resource-icon">💪</div>
+          <div class="resource-name">4-Week Muscle Gain Meal Plan</div>
+          <div class="resource-desc">High protein, clean eating plan designed to preserve and build muscle during weight loss.</div>
+          <a href="pdfs/Copy-of-Muscle-Gain-Plan-Template-1.pdf" target="_blank" class="resource-btn">Download PDF</a>
+        </div>
+        <div class="resource-card">
+          <div class="resource-icon">🌸</div>
+          <div class="resource-name">Menopause Support Guide</div>
+          <div class="resource-desc">A complete guide to supporting your health during menopause — by Enchanted.</div>
+          <a href="pdfs/Menopause-support.pdf" target="_blank" class="resource-btn">Download PDF</a>
+        </div>
+        <div class="resource-card">
+          <div class="resource-icon">📖</div>
+          <div class="resource-name">Weight Loss Program Guide</div>
+          <div class="resource-desc">Your complete guide to the Enchanted Medical Aesthetics weight loss program.</div>
+          <a href="pdfs/Weight_Loss_Program_Guide.pdf" target="_blank" class="resource-btn">Download PDF</a>
+        </div>
+        <div class="resource-card">
+          <div class="resource-icon">🍽️</div>
+          <div class="resource-name">GLP-1 Friendly Foods</div>
+          <div class="resource-desc">What to eat, what to limit, and how to build your plate while on Semaglutide or Tirzepatide.</div>
+          <a href="pdfs/GLP-1-Friendly-Foods-Guide.pdf" target="_blank" class="resource-btn">Download PDF</a>
+        </div>
+      </div>
+
+      <!-- EXERCISE & WELLNESS GUIDES -->
+      <div style="font-family:'EB Garamond',Georgia,serif;font-size:1.1rem;color:var(--grey);margin-bottom:.75rem;padding-bottom:.35rem;border-bottom:2px solid var(--gold)">Exercise &amp; Wellness</div>
+      <div class="resources-grid" style="margin-bottom:1.5rem">
+        <div class="resource-card">
+          <div class="resource-icon">🏋️</div>
+          <div class="resource-name">Wellness Workout Chart</div>
+          <div class="resource-desc">A structured weekly exercise plan designed for patients in our weight loss program.</div>
+          <a href="pdfs/Wellness_workout_chart_2.pdf" target="_blank" class="resource-btn">Download PDF</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- FAQ TAB -->
+    <div class="tab-content" id="tab-faq">
+      <div class="section-head">
+        <h2>Frequently Asked Questions</h2>
+        <p>Answers to the most common questions from patients in our program. Don't see yours? Contact us directly.</p>
+      </div>
+      <div id="faq-list"></div>
+    </div>
+
+    <!-- CONTACT TAB -->
+    <div class="tab-content" id="tab-contact">
+      <div class="section-head">
+        <h2>Contact Your Care Team</h2>
+        <p>We're here to support you throughout your program. Reach out any time with questions about your dose, side effects, or next appointment.</p>
+      </div>
+      <div class="contact-grid">
+        <div class="contact-card">
+          <h3>Ormond Beach</h3>
+          <p>For patients seen at our Ormond Beach location. Monday through Saturday.</p>
+          <a href="https://maps.apple.com/?q=276+N+Nova+Rd,+Ormond+Beach,+FL+32174" target="_blank" class="contact-link" style="display:block;margin-bottom:.4rem">📍 276 N. Nova Rd., Ormond Beach, FL 32174</a>
+          <a href="tel:3863171449" class="contact-link" style="display:block;margin-bottom:.4rem">📞 (386) 317-1449</a>
+          <a href="mailto:info@enchantedmedicalaesthetics.com" class="contact-link" style="display:block">✉ Email Us</a>
+        </div>
+        <div class="contact-card">
+          <h3>DeLand</h3>
+          <p>For patients seen at our DeLand location.</p>
+          <a href="https://maps.apple.com/?q=425+S+Woodland+Blvd,+DeLand,+FL+32720" target="_blank" class="contact-link" style="display:block;margin-bottom:.4rem">📍 425 S. Woodland Blvd., DeLand, FL 32720</a>
+          <a href="tel:3864632660" class="contact-link" style="display:block;margin-bottom:.4rem">📞 (386) 463-2660</a>
+          <a href="mailto:info@enchantedmedicalaesthetics.com" class="contact-link" style="display:block">✉ Email Us</a>
+        </div>
+        <div class="contact-card">
+          <h3>Palm Coast <span style="font-family:'Calibri',sans-serif;font-size:.68rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;background:var(--gold);color:var(--grey);padding:.15rem .5rem;border-radius:20px;vertical-align:middle;margin-left:.35rem">Coming Soon</span></h3>
+          <p>Opening soon to serve patients in Palm Coast.</p>
+          <a href="https://maps.apple.com/?q=890+Central+Ave,+Palm+Coast,+FL+32164" target="_blank" class="contact-link" style="display:block;margin-bottom:.4rem">📍 890 Central Ave., Unit D112, Palm Coast, FL 32164</a>
+          <a href="mailto:info@enchantedmedicalaesthetics.com" class="contact-link" style="display:block">✉ Email Us</a>
+        </div>
+      </div>
+      <div class="contact-card" style="margin-bottom:1.25rem">
+        <h3>Text to Order Medication</h3>
+        <p style="margin-bottom:.85rem">Text your preferred mL size and you will receive a confirmation text once your medication is prepared for you.</p>
+        <a href="sms:7067104015" class="contact-link">💬 (706) 710-4015</a>
+      </div>
+      <div class="contact-card" style="margin-bottom:1.25rem">
+        <h3>Email Us</h3>
+        <p style="margin-bottom:.85rem">For non-urgent questions, refill requests, or appointment scheduling. We respond within one business day.</p>
+        <a href="mailto:info@enchantedmedicalaesthetics.com" class="contact-link">✉ info@enchantedmedicalaesthetics.com</a>
+      </div>
+      <div class="contact-card">
+        <h3>Book Your Follow-Up</h3>
+        <p style="margin-bottom:.85rem">Follow-up appointments are required at Week 8, Week 16, and Week 24. Book online or call your location.</p>
+        <a href="https://enchantedmedicalaesthetics.myaestheticrecord.com/online-booking" target="_blank" class="contact-link">📅 Book Online</a>
+      </div>
+      <div class="warn-box" style="margin-top:1.25rem">🚨 <strong>If you are experiencing a medical emergency</strong>, call 911 immediately. For urgent symptoms like severe abdominal pain, difficulty breathing, or chest pain — do not wait. Go to your nearest emergency room or call 911.</div>
+    </div>
+
+  </main>
+  <footer>Enchanted Medical Aesthetics · Patient Portal · For enrolled patients only · Not for public distribution<br><span style="display:block;margin-top:.5rem;color:rgba(255,255,255,.55)">© 2026 Bridget Martin, DNP, APRN, NP-C. All rights reserved. Content owned by Bridget Martin and licensed to Enchanted Medical Aesthetics, LLC for use with its patients.</span></footer>
+</div>
+
+<script>
+var PASS = 'Enchanted276';
+
+// SEMAGLUTIDE standard — 2.5 mg/mL (1 unit = 0.025 mg)
+var SEMA = [
+  {w:'Weeks 1–4',dose:0.25,units:10,ml:'0.10 mL',desc:'Starting dose'},
+  {w:'Weeks 5–8',dose:0.5,units:20,ml:'0.20 mL',desc:'Increasing to 0.5 mg'},
+  {w:'Weeks 9–12',dose:1.0,units:40,ml:'0.40 mL',desc:'Increasing to 1.0 mg'},
+  {w:'Weeks 13–16',dose:1.7,units:68,ml:'0.68 mL',desc:'Per your provider\'s order'},
+  {w:'Week 17+',dose:2.5,units:100,ml:'1.00 mL',desc:'Per provider only — maximum dose'},
+];
+
+// SEMAGLUTIDE microdose — 2.5 mg/mL
+var SEMA_MICRO = [
+  {w:'Week 1',dose:0.0625,units:2.5,ml:'0.025 mL',desc:'Ultra-low start — building tolerance'},
+  {w:'Week 2',dose:0.125,units:5,ml:'0.05 mL',desc:'Gradual increase'},
+  {w:'Week 3',dose:0.2,units:8,ml:'0.08 mL',desc:'Gradual increase'},
+  {w:'Week 4',dose:0.25,units:10,ml:'0.10 mL',desc:'Reaching standard starting dose'},
+  {w:'Week 5+',dose:0.5,units:20,ml:'0.20 mL',desc:'Per provider — escalate as tolerated'},
+  {w:'Week 9+',dose:1.0,units:40,ml:'0.40 mL',desc:'Per provider — escalate as tolerated'},
+  {w:'Week 13+',dose:1.7,units:68,ml:'0.68 mL',desc:'Per provider — escalate as tolerated'},
+];
+
+// TIRZEPATIDE standard — 10 mg/mL (1 unit = 0.1 mg)
+var TIRZ = [
+  {w:'Weeks 1–4',dose:1.25,units:12.5,ml:'0.125 mL',desc:'Starting dose'},
+  {w:'Weeks 5–8',dose:2.5,units:25,ml:'0.25 mL',desc:'Increasing to 2.5 mg'},
+  {w:'Weeks 9–12',dose:5.0,units:50,ml:'0.50 mL',desc:'Increasing to 5 mg'},
+  {w:'Weeks 13–16',dose:7.5,units:75,ml:'0.75 mL',desc:'Increasing to 7.5 mg'},
+  {w:'Week 17+',dose:10.0,units:100,ml:'1.00 mL',desc:'Per provider\'s order'},
+  {w:'Higher doses',dose:15.0,units:150,ml:'1.50 mL',desc:'Max 15 mg — split into 2 injections'},
+];
+
+// TIRZEPATIDE microdose — Option 1 Ultra-Low (10 mg/mL)
+var TIRZ_MICRO = [
+  {w:'Week 1',dose:0.25,units:2.5,ml:'0.025 mL',desc:'Build initial tolerance'},
+  {w:'Week 2',dose:0.5,units:5,ml:'0.05 mL',desc:'Further tolerance, mild hunger reduction'},
+  {w:'Week 3',dose:1.0,units:10,ml:'0.10 mL',desc:'Improve digestion, early satiety'},
+  {w:'Week 4',dose:2.5,units:25,ml:'0.25 mL',desc:'Begin noticeable fat loss'},
+  {w:'Week 5+',dose:5.0,units:50,ml:'0.50 mL',desc:'Escalate as tolerated — 7.5 mg = 75u, 10 mg = 100u'},
+  {w:'Higher',dose:15.0,units:150,ml:'1.50 mL',desc:'Max 15 mg — split into 2 injections'},
+];
+
+var semaMicro = false;
+var tirzMicro = false;
+
+var FAQS = [
+  {q:'When will I receive a response to my message?',a:'We respond to all messages within one business day during regular business hours. For urgent questions, please call your location directly. If you are experiencing a medical emergency, call 911.'},
+  {q:'Can I stop in to purchase additional medication?',a:'Yes, however, we kindly request that orders are prepared in advance. Simply text <a href="sms:7067104015" style="color:var(--gold-dark)">(706) 710-4015</a> with your preferred mL size and you will receive a confirmation text once your medication is prepared for you.'},
+  {q:'Do I need to schedule a follow-up to refill my medication?',a:'No. Your follow-up visits are scheduled at Week 8, Week 16, and Week 24. Outside of those visits, you do not need an appointment to purchase additional medication. Simply text <a href="sms:7067104015" style="color:var(--gold-dark)">(706) 710-4015</a> with your preferred mL size and you will receive a confirmation text once your medication is prepared for you.'},
+  {q:'Does maintenance pricing include syringes?',a:'Dispensing kits (10 syringes and 10 alcohol prep pads) are available for $10. Please let us know when you pick up your medication if you need a kit.'},
+  {q:'Can I purchase additional B12?',a:'Yes — B12 injections are available for purchase at both locations. Contact your location to add them to your next visit or purchase separately.'},
+  {q:'What do I do once my sharps container is full?',a:'Once your sharps container is full, bring it to the office and we can dispose of it for you. We also sell sharps containers in-office for your convenience.'},
+  {q:'How often do I need labs?',a:'To continue on Enchanted\u2019s Weight Loss Program, labs are required every 6 months. We offer labs in-office.'},
+  {q:'What labs are required to continue on the Weight Loss Program?',a:'We require the following labs to maintain on Enchanted\u2019s Weight Loss Program: CBC, CMP, Lipid Panel, Thyroid Panel, Hgb A1C and Fasting Insulin.'},
+];
+
+function checkPass(){
+  if(document.getElementById('gate-input').value===PASS){
+    document.getElementById('gate').className='gate hidden';
+    document.getElementById('portal').className='portal show';
+    sessionStorage.setItem('wl_auth','1');
+    buildCalc();buildFAQ();
+  } else {
+    document.getElementById('gate-error').className='gate-error show';
+    document.getElementById('gate-input').value='';
+    document.getElementById('gate-input').focus();
+  }
+}
+
+function logout(){
+  sessionStorage.removeItem('wl_auth');
+  document.getElementById('gate').className='gate';
+  document.getElementById('portal').className='portal';
+  document.getElementById('gate-input').value='';
+}
+
+function showTab(id,btn){
+  document.querySelectorAll('.tab-content').forEach(function(t){t.classList.remove('active')});
+  document.querySelectorAll('.tab-btn').forEach(function(b){b.classList.remove('active')});
+  document.getElementById('tab-'+id).classList.add('active');
+  btn.classList.add('active');
+}
+
+function buildWeekBtns(containerId, schedule, updateFn){
+  var el = document.getElementById(containerId);
+  el.innerHTML = '';
+  schedule.forEach(function(s,i){
+    var b = document.createElement('button');
+    b.className = 'wk-btn' + (i===0?' active':'');
+    b.textContent = s.w;
+    b.onclick = function(){
+      el.querySelectorAll('.wk-btn').forEach(function(x){x.classList.remove('active')});
+      b.classList.add('active');
+      updateFn(s);
+    };
+    el.appendChild(b);
+  });
+  updateFn(schedule[0]);
+}
+
+function buildCalc(){
+  buildWeekBtns('sema-weeks', SEMA, updateSema);
+  buildWeekBtns('tirz-weeks', TIRZ, updateTirz);
+}
+
+function setSemaMode(micro){
+  semaMicro = micro;
+  var stdBtn = document.getElementById('sema-std-btn');
+  var micBtn = document.getElementById('sema-micro-btn');
+  var lbl = document.getElementById('sema-mode-label');
+  if(micro){
+    stdBtn.style.background='transparent'; stdBtn.style.borderColor='var(--border)'; stdBtn.style.color='var(--text-light)'; stdBtn.style.fontWeight='600';
+    micBtn.style.background='var(--gold)'; micBtn.style.borderColor='var(--gold)'; micBtn.style.color='var(--grey)'; micBtn.style.fontWeight='700';
+    lbl.textContent = '— gentler titration for sensitive patients';
+    buildWeekBtns('sema-weeks', SEMA_MICRO, updateSema);
+  } else {
+    stdBtn.style.background='var(--gold)'; stdBtn.style.borderColor='var(--gold)'; stdBtn.style.color='var(--grey)'; stdBtn.style.fontWeight='700';
+    micBtn.style.background='transparent'; micBtn.style.borderColor='var(--border)'; micBtn.style.color='var(--text-light)'; micBtn.style.fontWeight='600';
+    lbl.textContent = '';
+    buildWeekBtns('sema-weeks', SEMA, updateSema);
+  }
+}
+
+function setTirzMode(micro){
+  tirzMicro = micro;
+  var stdBtn = document.getElementById('tirz-std-btn');
+  var micBtn = document.getElementById('tirz-micro-btn');
+  var lbl = document.getElementById('tirz-mode-label');
+  if(micro){
+    stdBtn.style.background='transparent'; stdBtn.style.borderColor='var(--border)'; stdBtn.style.color='var(--text-light)'; stdBtn.style.fontWeight='600';
+    micBtn.style.background='var(--gold)'; micBtn.style.borderColor='var(--gold)'; micBtn.style.color='var(--grey)'; micBtn.style.fontWeight='700';
+    lbl.textContent = '';
+    buildWeekBtns('tirz-weeks', TIRZ_MICRO, updateTirz);
+  } else {
+    stdBtn.style.background='var(--gold)'; stdBtn.style.borderColor='var(--gold)'; stdBtn.style.color='var(--grey)'; stdBtn.style.fontWeight='700';
+    micBtn.style.background='transparent'; micBtn.style.borderColor='var(--border)'; micBtn.style.color='var(--text-light)'; micBtn.style.fontWeight='600';
+    lbl.textContent = '';
+    buildWeekBtns('tirz-weeks', TIRZ, updateTirz);
+  }
+}
+
+function drawSyringe(svgId, units, maxUnits){
+  var svg = document.getElementById(svgId);
+  svg.innerHTML = '';
+  var ns = 'http://www.w3.org/2000/svg';
+  // Layout: plunger left, needle right
+  // Barrel: x=40 to x=220, y=28 to y=52 (height=24)
+  var bx1=40, bx2=220, by1=26, by2=54, bh=by2-by1, bw=bx2-bx1;
+
+  // Clip path for fill
+  var defs = document.createElementNS(ns,'defs');
+  var clip = document.createElementNS(ns,'clipPath');
+  clip.setAttribute('id', svgId+'-clip');
+  var cr = document.createElementNS(ns,'rect');
+  cr.setAttribute('x',bx1+1); cr.setAttribute('y',by1+1);
+  cr.setAttribute('width',bw-2); cr.setAttribute('height',bh-2);
+  clip.appendChild(cr); defs.appendChild(clip); svg.appendChild(defs);
+
+  // Fill (blue, left-aligned = plunger side)
+  var fillPct = Math.min(units, maxUnits) / maxUnits;
+  var fillW = Math.round((bw-2) * fillPct);
+  var fill = document.createElementNS(ns,'rect');
+  fill.setAttribute('x', bx1+1);
+  fill.setAttribute('y', by1+1);
+  fill.setAttribute('width', fillW);
+  fill.setAttribute('height', bh-2);
+  fill.setAttribute('fill','#4a9fc0');
+  fill.setAttribute('clip-path','url(#'+svgId+'-clip+)');
+  fill.style.transition='width .5s ease';
+  svg.appendChild(fill);
+
+  // Barrel outline
+  var barrel = document.createElementNS(ns,'rect');
+  barrel.setAttribute('x',bx1); barrel.setAttribute('y',by1);
+  barrel.setAttribute('width',bw); barrel.setAttribute('height',bh);
+  barrel.setAttribute('rx','3');
+  barrel.setAttribute('fill','none');
+  barrel.setAttribute('stroke','rgba(255,255,255,0.5)');
+  barrel.setAttribute('stroke-width','1.5');
+  svg.appendChild(barrel);
+
+  // Graduation marks — adapt step size to maxUnits
+  var majorStep = maxUnits <= 30 ? 5 : 10;
+  var minorStep = maxUnits <= 30 ? 1 : 2;
+  for(var u=0; u<=maxUnits; u+=minorStep){
+    var x = bx1 + (u/maxUnits)*bw;
+    var isMajor = u%majorStep===0;
+    var isMid   = (u%(majorStep/2)===0) && !isMajor;
+    var tickH   = isMajor ? bh : isMid ? bh*0.6 : bh*0.35;
+    var tickY   = by1 + (bh - tickH)/2;
+    var line = document.createElementNS(ns,'line');
+    line.setAttribute('x1',x); line.setAttribute('x2',x);
+    line.setAttribute('y1',tickY); line.setAttribute('y2',tickY+tickH);
+    line.setAttribute('stroke', isMajor ? 'rgba(255,255,255,0.9)' : 'rgba(255,255,255,0.4)');
+    line.setAttribute('stroke-width', isMajor ? '1.5' : '0.8');
+    svg.appendChild(line);
+
+    // Labels for major marks
+    if(isMajor && u > 0 && u < maxUnits){
+      var txt = document.createElementNS(ns,'text');
+      txt.setAttribute('x', x);
+      txt.setAttribute('y', by1-4);
+      txt.setAttribute('text-anchor','middle');
+      txt.setAttribute('font-size','8');
+      txt.setAttribute('font-family','Calibri,Arial,sans-serif');
+      txt.setAttribute('fill','rgba(255,255,255,0.6)');
+      txt.textContent = u;
+      svg.appendChild(txt);
+    }
+  }
+  // 0 and max labels
+  var l0=document.createElementNS(ns,'text'); l0.setAttribute('x',bx1); l0.setAttribute('y',by1-4); l0.setAttribute('text-anchor','middle'); l0.setAttribute('font-size','8'); l0.setAttribute('font-family','Calibri,Arial,sans-serif'); l0.setAttribute('fill','rgba(255,255,255,0.6)'); l0.textContent='0'; svg.appendChild(l0);
+  var lmax=document.createElementNS(ns,'text'); lmax.setAttribute('x',bx2); lmax.setAttribute('y',by1-4); lmax.setAttribute('text-anchor','middle'); lmax.setAttribute('font-size','8'); lmax.setAttribute('font-family','Calibri,Arial,sans-serif'); lmax.setAttribute('fill','rgba(255,255,255,0.6)'); lmax.textContent=maxUnits+'u'; svg.appendChild(lmax);
+
+  // Plunger handle (left)
+  var ph = document.createElementNS(ns,'rect');
+  ph.setAttribute('x',bx1-18); ph.setAttribute('y',by1+4);
+  ph.setAttribute('width',18); ph.setAttribute('height',bh-8);
+  ph.setAttribute('rx','2'); ph.setAttribute('fill','#9a8252');
+  svg.appendChild(ph);
+  // Plunger rod
+  var rod = document.createElementNS(ns,'rect');
+  rod.setAttribute('x',bx1-8); rod.setAttribute('y',by1-5);
+  rod.setAttribute('width',8); rod.setAttribute('height',bh+10);
+  rod.setAttribute('fill','rgba(255,255,255,0.15)');
+  svg.appendChild(rod);
+
+  // Needle hub (right)
+  var hub = document.createElementNS(ns,'rect');
+  hub.setAttribute('x',bx2); hub.setAttribute('y',by1+7);
+  hub.setAttribute('width',10); hub.setAttribute('height',bh-14);
+  hub.setAttribute('rx','1'); hub.setAttribute('fill','#9a8252');
+  svg.appendChild(hub);
+  // Needle
+  var nee = document.createElementNS(ns,'line');
+  nee.setAttribute('x1',bx2+10); nee.setAttribute('x2',bx2+28);
+  nee.setAttribute('y1',(by1+by2)/2); nee.setAttribute('y2',(by1+by2)/2);
+  nee.setAttribute('stroke','rgba(255,255,255,0.5)'); nee.setAttribute('stroke-width','2');
+  svg.appendChild(nee);
+
+  // Dose arrow indicator
+  if(units > 0 && units <= maxUnits){
+    var ax = bx1 + (units/maxUnits)*bw;
+    var arr = document.createElementNS(ns,'line');
+    arr.setAttribute('x1',ax); arr.setAttribute('x2',ax);
+    arr.setAttribute('y1',by2+2); arr.setAttribute('y2',by2+12);
+    arr.setAttribute('stroke','#B9A473'); arr.setAttribute('stroke-width','2');
+    svg.appendChild(arr);
+    var arrtxt = document.createElementNS(ns,'text');
+    arrtxt.setAttribute('x',ax); arrtxt.setAttribute('y',by2+22);
+    arrtxt.setAttribute('text-anchor','middle');
+    arrtxt.setAttribute('font-size','9');
+    arrtxt.setAttribute('font-weight','bold');
+    arrtxt.setAttribute('font-family','Calibri,Arial,sans-serif');
+    arrtxt.setAttribute('fill','#B9A473');
+    arrtxt.textContent = units+'u';
+    svg.appendChild(arrtxt);
+  }
+}
+
+function updateSema(s){
+  document.getElementById('sema-units').textContent=s.units+' units';
+  document.getElementById('sema-ml').textContent=s.dose+' mg  ·  '+s.ml;
+  var d=document.getElementById('sema-draw');
+  d.style.display='block';
+  d.innerHTML='<strong>Draw to '+s.units+' units</strong> on your 100-unit (1 mL) syringe<br>'+s.dose+' mg dose &nbsp;·&nbsp; '+s.ml+'<br><span style="color:var(--text-light)">'+s.desc+'</span>';
+  drawSyringe('sema-syringe', s.units, 100);
+}
+
+function updateTirz(s){
+  document.getElementById('tirz-units').textContent=s.units+' units';
+  document.getElementById('tirz-ml').textContent=s.dose+' mg  ·  '+s.ml;
+  var d=document.getElementById('tirz-draw');
+  d.style.display='block';
+  var warn = s.units>100 ? '<br><strong style="color:#c07060">⚠ Over 100 units — split into 2 injections</strong>' : '';
+  d.innerHTML='<strong>Draw to '+s.units+' units</strong> on your 100-unit (1 mL) syringe<br>'+s.dose+' mg dose &nbsp;·&nbsp; '+s.ml+warn+'<br><span style="color:var(--text-light)">'+s.desc+'</span>';
+  // Microdose: zoom syringe to 30 units so small doses are clearly visible
+  var syringeMax = tirzMicro ? 30 : 100;
+  drawSyringe('tirz-syringe', Math.min(s.units, syringeMax), syringeMax);
+}
+
+function calcWater(){
+  var w = parseFloat(document.getElementById('weight-input').value);
+  if(!w || w < 50){ 
+    document.getElementById('water-oz').textContent='—';
+    document.getElementById('water-cups').textContent='';
+    document.getElementById('water-bottles').textContent='';
+    document.getElementById('water-tips').style.display='none';
+    return;
+  }
+  var oz = Math.round(w / 2);
+  var cups = (oz / 8).toFixed(1);
+  var bottles = (oz / 16.9).toFixed(1); // standard water bottle
+  document.getElementById('water-oz').textContent = oz;
+  document.getElementById('water-cups').textContent = cups + ' cups  ·  ' + bottles + ' standard water bottles (16.9 oz)';
+  document.getElementById('water-bottles').textContent = '';
+  var tips = document.getElementById('water-tips');
+  tips.style.display='block';
+  var perHour = Math.round(oz / 12); // spread over 12 waking hours
+  tips.innerHTML = '💡 <strong>To hit your goal:</strong> Drink approximately ' + perHour + ' oz every hour over 12 hours, or spread evenly throughout the day. Start with a full glass first thing in the morning before coffee. GLP-1 medications increase your risk of dehydration — even mild dehydration worsens nausea and constipation.';
+}
+
+function buildFAQ(){
+  ['faq-list','faq-list-contact'].forEach(function(id){
+  var el=document.getElementById(id);
+  if(!el) return;
+  FAQS.forEach(function(f){
+    var item=document.createElement('div');
+    item.className='faq-item';
+    var btn=document.createElement('button');
+    btn.className='faq-btn';
+    btn.innerHTML=f.q+'<span class="icon">+</span>';
+    var ans=document.createElement('div');
+    ans.className='faq-answer';
+    ans.innerHTML=f.a;
+    btn.onclick=function(){
+      var open=ans.classList.contains('show');
+      document.querySelectorAll('.faq-answer').forEach(function(a){a.classList.remove('show')});
+      document.querySelectorAll('.faq-btn').forEach(function(b){b.classList.remove('open')});
+      if(!open){ans.classList.add('show');btn.classList.add('open');}
+    };
+    item.appendChild(btn);
+    item.appendChild(ans);
+    el.appendChild(item);
+  });
+  });
+}
+
+if(sessionStorage.getItem('wl_auth')==='1'){
+  document.getElementById('gate').className='gate hidden';
+  document.getElementById('portal').className='portal show';
+  buildCalc();buildFAQ();
+}
+</script>
+</body>
+</html>
