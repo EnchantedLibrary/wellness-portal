@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Weight Loss Portal | Enchanted Medical Aesthetics</title>
+<title>Wellness Portal | Enchanted Medical Aesthetics</title>
 <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Calibri:wght@300;400;600&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -107,9 +107,15 @@ main{max-width:900px;margin:0 auto;padding:2rem 1.5rem 4rem;width:100%}
 .faq-answer.show{display:block}
 
 /* RESOURCES */
-.resources-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1rem;margin-bottom:1.5rem}
+.resources-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:1rem;margin-bottom:1.5rem}
 .resource-card{background:var(--white);border:1px solid var(--border);border-radius:8px;padding:1.1rem;display:flex;flex-direction:column;gap:.6rem;transition:border-color .15s,box-shadow .15s}
 .resource-card:hover{border-color:var(--gold);box-shadow:0 2px 12px rgba(185,164,115,.15)}
+.resource-card{text-decoration:none;color:inherit}
+.cover{aspect-ratio:3/4;border-radius:5px;overflow:hidden;background:var(--nude,#F5F1EA);border:1px solid var(--border)}
+.cover-img{width:100%;height:100%;object-fit:cover;display:block}
+.cover-css{width:100%;height:100%;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:.6rem;padding:1rem;text-align:center;background:linear-gradient(160deg,#F5F1EA 0%,#efe7d8 100%);border-top:6px solid var(--gold)}
+.cover-brand{font-family:Georgia,serif;font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold-dark,#8f7c4f)}
+.cover-title{font-family:'EB Garamond',Georgia,serif;font-size:1.05rem;line-height:1.25;color:var(--grey);border-top:1px solid var(--gold);padding-top:.6rem}
 .resource-icon{font-size:1.6rem}
 .resource-name{font-size:.88rem;font-weight:600;color:var(--text);line-height:1.3}
 .resource-desc{font-size:.78rem;color:var(--text-light);line-height:1.5;flex:1}
@@ -139,7 +145,7 @@ footer{background:var(--grey);padding:1.25rem 2rem;text-align:center;font-size:.
 <!-- GATE -->
 <div class="gate" id="gate">
   <div class="gate-logo">Enchanted<span>Medical Aesthetics</span></div>
-  <div class="gate-sub">Weight Loss Patient Portal — Enter your access code</div>
+  <div class="gate-sub">Wellness Portal — Enter your access code</div>
   <input type="password" class="gate-input" id="gate-input" placeholder="Access code" onkeydown="if(event.key==='Enter')checkPass()">
   <button class="gate-btn" onclick="checkPass()">Enter Portal</button>
   <div class="gate-error" id="gate-error">Incorrect code. Please try again.</div>
@@ -155,7 +161,7 @@ footer{background:var(--grey);padding:1.25rem 2rem;text-align:center;font-size:.
   </header>
 
   <div class="welcome-band">
-    <div class="welcome-text">Weight Loss Patient Portal</div>
+    <div class="welcome-text">Wellness Portal</div>
     <div class="location-pills">
       <span class="pill">Ormond Beach</span>
       <span class="pill">DeLand</span>
@@ -457,141 +463,190 @@ footer{background:var(--grey);padding:1.25rem 2rem;text-align:center;font-size:.
     <div class="tab-content" id="tab-resources">
       <div class="section-head">
         <h2>Resources & Guides</h2>
-        <p>Everything you need to support your weight loss journey — nutrition guides, meal plans, and program information.</p>
+        <p>Everything you need to support your wellness journey — nutrition guides, meal plans, and program information.</p>
       </div>
-      <!-- MEDICATION GUIDES -->
-      <div style="font-family:'EB Garamond',Georgia,serif;font-size:1.1rem;color:var(--grey);margin-bottom:.75rem;padding-bottom:.35rem;border-bottom:2px solid var(--gold)">Medication Guides</div>
+      <div style="font-family:'EB Garamond',Georgia,serif;font-size:1.1rem;color:var(--grey);margin-bottom:.75rem;padding-bottom:.35rem;border-bottom:2px solid var(--gold)">Medication &amp; Injection Guides</div>
       <div class="resources-grid" style="margin-bottom:1.5rem">
-        <div class="resource-card">
-          <div class="resource-icon">💉</div>
-          <div class="resource-name">Semaglutide Patient Information Sheet</div>
-          <div class="resource-desc">How Semaglutide works, side effects, storage, and what to expect.</div>
-          <a href="pdfs/Semaglutide-Patient-Information-Sheet-1.pdf" target="_blank" class="resource-btn">Download PDF</a>
-        </div>
-        <div class="resource-card">
-          <div class="resource-icon">💉</div>
+        <a class="resource-card" href="semaglutide.html" target="_blank">
+          <div class="cover"><div class="cover-css"><span class="cover-brand">Enchanted</span><span class="cover-title">Semaglutide Patient Information</span></div></div>
+          <div class="resource-name">Semaglutide Patient Information</div>
+          <div class="resource-desc">How it works, side effects, safety, and storage.</div>
+          <span class="resource-btn">Open Guide</span>
+        </a>
+        <a class="resource-card" href="semaglutide-dosing-schedule.html" target="_blank">
+          <div class="cover"><div class="cover-css"><span class="cover-brand">Enchanted</span><span class="cover-title">Semaglutide Dosing Schedule</span></div></div>
           <div class="resource-name">Semaglutide Dosing Schedule</div>
-          <div class="resource-desc">Week-by-week standard dosing guide for Semaglutide patients.</div>
-          <a href="pdfs/Semaglutide-Treatment-Dosage-Form.pdf" target="_blank" class="resource-btn">Download PDF</a>
-        </div>
-        <div class="resource-card">
-          <div class="resource-icon">💉</div>
-          <div class="resource-name">Tirzepatide Patient Information Sheet</div>
-          <div class="resource-desc">How Tirzepatide works, side effects, storage, and what to expect.</div>
-          <a href="pdfs/Tirzepatide-Patient-Information-Sheet-1.pdf" target="_blank" class="resource-btn">Download PDF</a>
-        </div>
-        <div class="resource-card">
-          <div class="resource-icon">💉</div>
+          <div class="resource-desc">Your week-by-week semaglutide plan.</div>
+          <span class="resource-btn">Open Guide</span>
+        </a>
+        <a class="resource-card" href="semaglutide-microdosing.html" target="_blank">
+          <div class="cover"><div class="cover-css"><span class="cover-brand">Enchanted</span><span class="cover-title">Semaglutide Microdosing Plan</span></div></div>
+          <div class="resource-name">Semaglutide Microdosing Plan</div>
+          <div class="resource-desc">The 4-week microdosing schedule.</div>
+          <span class="resource-btn">Open Guide</span>
+        </a>
+        <a class="resource-card" href="tirzepatide.html" target="_blank">
+          <div class="cover"><div class="cover-css"><span class="cover-brand">Enchanted</span><span class="cover-title">Tirzepatide Patient Information</span></div></div>
+          <div class="resource-name">Tirzepatide Patient Information</div>
+          <div class="resource-desc">How it works, side effects, safety, and storage.</div>
+          <span class="resource-btn">Open Guide</span>
+        </a>
+        <a class="resource-card" href="tirzepatide-dosing-schedule.html" target="_blank">
+          <div class="cover"><div class="cover-css"><span class="cover-brand">Enchanted</span><span class="cover-title">Tirzepatide Dosing Schedule</span></div></div>
           <div class="resource-name">Tirzepatide Dosing Schedule</div>
-          <div class="resource-desc">Week-by-week standard dosing guide for Tirzepatide patients.</div>
-          <a href="pdfs/Tirzepatide-Treatment-Dosing-Schedule.pdf" target="_blank" class="resource-btn">Download PDF</a>
-        </div>
-        <div class="resource-card">
-          <div class="resource-icon">💊</div>
+          <div class="resource-desc">Your week-by-week tirzepatide plan.</div>
+          <span class="resource-btn">Open Guide</span>
+        </a>
+        <a class="resource-card" href="tirzepatide-microdosing.html" target="_blank">
+          <div class="cover"><div class="cover-css"><span class="cover-brand">Enchanted</span><span class="cover-title">Tirzepatide Microdosing Plan</span></div></div>
+          <div class="resource-name">Tirzepatide Microdosing Plan</div>
+          <div class="resource-desc">The 4-week microdosing schedule.</div>
+          <span class="resource-btn">Open Guide</span>
+        </a>
+        <a class="resource-card" href="subcutaneous-injections.html" target="_blank">
+          <div class="cover"><div class="cover-css"><span class="cover-brand">Enchanted</span><span class="cover-title">Subcutaneous Injections</span></div></div>
+          <div class="resource-name">Subcutaneous Injections</div>
+          <div class="resource-desc">Step-by-step self-injection guide.</div>
+          <span class="resource-btn">Open Guide</span>
+        </a>
+        <a class="resource-card" href="intramuscular-injections.html" target="_blank">
+          <div class="cover"><div class="cover-css"><span class="cover-brand">Enchanted</span><span class="cover-title">Intramuscular Injections</span></div></div>
+          <div class="resource-name">Intramuscular Injections</div>
+          <div class="resource-desc">Step-by-step guide for IM injections.</div>
+          <span class="resource-btn">Open Guide</span>
+        </a>
+        <a class="resource-card" href="sharps-disposal.html" target="_blank">
+          <div class="cover"><div class="cover-css"><span class="cover-brand">Enchanted</span><span class="cover-title">Safe Sharps Disposal</span></div></div>
+          <div class="resource-name">Safe Sharps Disposal</div>
+          <div class="resource-desc">How to store and dispose of used needles.</div>
+          <span class="resource-btn">Open Guide</span>
+        </a>
+        <a class="resource-card" href="pdfs/What-To-Pair-with-GLP-1-2.pdf" target="_blank">
+          <div class="cover"><img class="cover-img" src="covers/what-to-pair-with-glp-1.jpg" alt="" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="cover-css" style="display:none"><span class="cover-brand">Enchanted</span><span class="cover-title">What to Pair with GLP-1</span></div></div>
           <div class="resource-name">What to Pair with GLP-1</div>
-          <div class="resource-desc">Supplements, vitamins, and lifestyle additions that support your program.</div>
-          <a href="pdfs/What-To-Pair-with-GLP-1-2.pdf" target="_blank" class="resource-btn">Download PDF</a>
-        </div>
-        <div class="resource-card">
-          <div class="resource-icon">📋</div>
-          <div class="resource-name">Weight Loss Consumer Bill of Rights</div>
-          <div class="resource-desc">Your rights as a weight loss program patient at Enchanted.</div>
-          <a href="pdfs/Weight-Loss-Consumer-Bill-of-Rights-1.pdf" target="_blank" class="resource-btn">Download PDF</a>
-        </div>
-        <div class="resource-card">
-          <div class="resource-icon">🩹</div>
-          <div class="resource-name">Subcutaneous Injection Guide</div>
-          <div class="resource-desc">Step-by-step self-injection technique with visuals.</div>
-          <a href="pdfs/Subcutaneous-Injections.pdf" target="_blank" class="resource-btn">Download PDF</a>
-        </div>
+          <div class="resource-desc">Supplements and habits that support your medication.</div>
+          <span class="resource-btn">Download PDF</span>
+        </a>
+        <a class="resource-card" href="weight-loss-bill-of-rights.html" target="_blank">
+          <div class="cover"><div class="cover-css"><span class="cover-brand">Enchanted</span><span class="cover-title">Weight-Loss Consumer Bill of Rights</span></div></div>
+          <div class="resource-name">Weight-Loss Consumer Bill of Rights</div>
+          <div class="resource-desc">Your rights under Florida law.</div>
+          <span class="resource-btn">Open Guide</span>
+        </a>
       </div>
 
-      <!-- NUTRITION GUIDES -->
-      <div style="font-family:'EB Garamond',Georgia,serif;font-size:1.1rem;color:var(--grey);margin-bottom:.75rem;padding-bottom:.35rem;border-bottom:2px solid var(--gold)">Nutrition & Meal Planning</div>
+      <div style="font-family:'EB Garamond',Georgia,serif;font-size:1.1rem;color:var(--grey);margin-bottom:.75rem;padding-bottom:.35rem;border-bottom:2px solid var(--gold)">Program Guides</div>
       <div class="resources-grid" style="margin-bottom:1.5rem">
-        <div class="resource-card">
-          <div class="resource-icon">🌿</div>
-          <div class="resource-name">Vitamins & Minerals Guide</div>
-          <div class="resource-desc">Complete guide to essential nutrients — by Dr. Bridget Martin.</div>
-          <a href="pdfs/Vitamins-and-Minerals-Guide1.pdf" target="_blank" class="resource-btn">Download PDF</a>
-        </div>
-        <div class="resource-card">
-          <div class="resource-icon">🥑</div>
-          <div class="resource-name">Guide to Fats</div>
-          <div class="resource-desc">Understanding healthy and unhealthy fats for weight loss.</div>
-          <a href="pdfs/Copy-of-Guide-to-Fats-compressed.pdf" target="_blank" class="resource-btn">Download PDF</a>
-        </div>
-        <div class="resource-card">
-          <div class="resource-icon">📊</div>
-          <div class="resource-name">Macronutrients & Calories</div>
-          <div class="resource-desc">Everything you need to know about macros and calorie balance.</div>
-          <a href="pdfs/Copy-of-All-you-need-to-know-about-MACRONUTRIENTS-and-CALORIES_1.pdf" target="_blank" class="resource-btn">Download PDF</a>
-        </div>
-        <div class="resource-card">
-          <div class="resource-icon">🥗</div>
-          <div class="resource-name">Mediterranean Meal Plan</div>
-          <div class="resource-desc">Anti-inflammatory 4-week meal plan to support weight loss.</div>
-          <a href="pdfs/Mediterranean-Meal-Plan-Template1.pdf" target="_blank" class="resource-btn">Download PDF</a>
-        </div>
-        <div class="resource-card">
-          <div class="resource-icon">🫐</div>
-          <div class="resource-name">Thyroid Meal Plan</div>
-          <div class="resource-desc">Nutrition plan designed to support thyroid health.</div>
-          <a href="pdfs/Copy-of-Thyroid-Meal-Plan-Template_compressed.pdf" target="_blank" class="resource-btn">Download PDF</a>
-        </div>
-        <div class="resource-card">
-          <div class="resource-icon">🥤</div>
-          <div class="resource-name">Smoothie Guide</div>
-          <div class="resource-desc">Simple, healthy smoothie recipes to keep you fueled.</div>
-          <a href="pdfs/SimpleHealthySmoothieGuide_compressed.pdf" target="_blank" class="resource-btn">Download PDF</a>
-        </div>
-        <div class="resource-card">
-          <div class="resource-icon">🍞</div>
-          <div class="resource-name">Guide to Carbs</div>
-          <div class="resource-desc">Everything you need to know about carbohydrates and how they affect weight loss.</div>
-          <a href="pdfs/Guide-to-Carbs_compressed.pdf" target="_blank" class="resource-btn">Download PDF</a>
-        </div>
-        <div class="resource-card">
-          <div class="resource-icon">🥩</div>
-          <div class="resource-name">Guide to Protein</div>
-          <div class="resource-desc">Why protein is essential on your GLP-1 program and how to hit your daily goal.</div>
-          <a href="pdfs/Copy-of-Guide-to-Protein-compressed.pdf" target="_blank" class="resource-btn">Download PDF</a>
-        </div>
-        <div class="resource-card">
-          <div class="resource-icon">💪</div>
-          <div class="resource-name">4-Week Muscle Gain Meal Plan</div>
-          <div class="resource-desc">High protein, clean eating plan designed to preserve and build muscle during weight loss.</div>
-          <a href="pdfs/Copy-of-Muscle-Gain-Plan-Template-1.pdf" target="_blank" class="resource-btn">Download PDF</a>
-        </div>
-        <div class="resource-card">
-          <div class="resource-icon">🌸</div>
-          <div class="resource-name">Menopause Support Guide</div>
-          <div class="resource-desc">A complete guide to supporting your health during menopause — by Enchanted.</div>
-          <a href="pdfs/Menopause-support.pdf" target="_blank" class="resource-btn">Download PDF</a>
-        </div>
-        <div class="resource-card">
-          <div class="resource-icon">📖</div>
+        <a class="resource-card" href="pdfs/Weight_Loss_Program_Guide.pdf" target="_blank">
+          <div class="cover"><img class="cover-img" src="covers/weight-loss-program-guide.jpg" alt="" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="cover-css" style="display:none"><span class="cover-brand">Enchanted</span><span class="cover-title">Weight Loss Program Guide</span></div></div>
           <div class="resource-name">Weight Loss Program Guide</div>
-          <div class="resource-desc">Your complete guide to the Enchanted Medical Aesthetics weight loss program.</div>
-          <a href="pdfs/Weight_Loss_Program_Guide.pdf" target="_blank" class="resource-btn">Download PDF</a>
-        </div>
-        <div class="resource-card">
-          <div class="resource-icon">🍽️</div>
-          <div class="resource-name">GLP-1 Friendly Foods</div>
-          <div class="resource-desc">What to eat, what to limit, and how to build your plate while on Semaglutide or Tirzepatide.</div>
-          <a href="pdfs/GLP-1-Friendly-Foods-Guide.pdf" target="_blank" class="resource-btn">Download PDF</a>
-        </div>
+          <div class="resource-desc">Everything about how our program works.</div>
+          <span class="resource-btn">Download PDF</span>
+        </a>
+        <a class="resource-card" href="pdfs/Enchanteds-Weight-Loss-Wellness-Guide.pdf" target="_blank">
+          <div class="cover"><img class="cover-img" src="covers/weight-loss-wellness-guide.jpg" alt="" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="cover-css" style="display:none"><span class="cover-brand">Enchanted</span><span class="cover-title">Weight Loss &amp; Wellness Guide</span></div></div>
+          <div class="resource-name">Weight Loss &amp; Wellness Guide</div>
+          <div class="resource-desc">Enchanted's complete wellness guide.</div>
+          <span class="resource-btn">Download PDF</span>
+        </a>
       </div>
 
-      <!-- EXERCISE & WELLNESS GUIDES -->
+      <div style="font-family:'EB Garamond',Georgia,serif;font-size:1.1rem;color:var(--grey);margin-bottom:.75rem;padding-bottom:.35rem;border-bottom:2px solid var(--gold)">Nutrition &amp; Meal Planning</div>
+      <div class="resources-grid" style="margin-bottom:1.5rem">
+        <a class="resource-card" href="pdfs/GLP-1-Friendly-Foods-Guide.pdf" target="_blank">
+          <div class="cover"><img class="cover-img" src="covers/glp-1-friendly-foods.jpg" alt="" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="cover-css" style="display:none"><span class="cover-brand">Enchanted</span><span class="cover-title">GLP-1 Friendly Foods</span></div></div>
+          <div class="resource-name">GLP-1 Friendly Foods</div>
+          <div class="resource-desc">What to eat, what to limit, and how to build your plate.</div>
+          <span class="resource-btn">Download PDF</span>
+        </a>
+        <a class="resource-card" href="pdfs/Portion%20Size.pdf" target="_blank">
+          <div class="cover"><img class="cover-img" src="covers/portion-size.jpg" alt="" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="cover-css" style="display:none"><span class="cover-brand">Enchanted</span><span class="cover-title">Portion Sizes</span></div></div>
+          <div class="resource-name">Portion Sizes</div>
+          <div class="resource-desc">A simple visual guide to portions.</div>
+          <span class="resource-btn">Download PDF</span>
+        </a>
+        <a class="resource-card" href="pdfs/6677-Meal-5x7-et-compressed.pdf" target="_blank">
+          <div class="cover"><img class="cover-img" src="covers/meal-prepping-101.jpg" alt="" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="cover-css" style="display:none"><span class="cover-brand">Enchanted</span><span class="cover-title">Meal Prepping 101</span></div></div>
+          <div class="resource-name">Meal Prepping 101</div>
+          <div class="resource-desc">Build a perfect meal and plan your week.</div>
+          <span class="resource-btn">Download PDF</span>
+        </a>
+        <a class="resource-card" href="pdfs/Copy-of-All-you-need-to-know-about-MACRONUTRIENTS-and-CALORIES-compressed.pdf" target="_blank">
+          <div class="cover"><img class="cover-img" src="covers/macronutrients-calories.jpg" alt="" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="cover-css" style="display:none"><span class="cover-brand">Enchanted</span><span class="cover-title">Macronutrients &amp; Calories</span></div></div>
+          <div class="resource-name">Macronutrients &amp; Calories</div>
+          <div class="resource-desc">Protein, carbs, fats, and calories explained.</div>
+          <span class="resource-btn">Download PDF</span>
+        </a>
+        <a class="resource-card" href="pdfs/Copy-of-Guide-to-Protein-compressed.pdf" target="_blank">
+          <div class="cover"><img class="cover-img" src="covers/guide-to-protein.jpg" alt="" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="cover-css" style="display:none"><span class="cover-brand">Enchanted</span><span class="cover-title">Guide to Protein</span></div></div>
+          <div class="resource-name">Guide to Protein</div>
+          <div class="resource-desc">Protein sources and how much you need.</div>
+          <span class="resource-btn">Download PDF</span>
+        </a>
+        <a class="resource-card" href="pdfs/Copy-of-Guide-to-Fats-compressed.pdf" target="_blank">
+          <div class="cover"><img class="cover-img" src="covers/guide-to-fats.jpg" alt="" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="cover-css" style="display:none"><span class="cover-brand">Enchanted</span><span class="cover-title">Guide to Fats</span></div></div>
+          <div class="resource-name">Guide to Fats</div>
+          <div class="resource-desc">Healthy and unhealthy fats.</div>
+          <span class="resource-btn">Download PDF</span>
+        </a>
+        <a class="resource-card" href="pdfs/Guide-to-Carbs_compressed.pdf" target="_blank">
+          <div class="cover"><img class="cover-img" src="covers/guide-to-carbs.jpg" alt="" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="cover-css" style="display:none"><span class="cover-brand">Enchanted</span><span class="cover-title">Guide to Carbs</span></div></div>
+          <div class="resource-name">Guide to Carbs</div>
+          <div class="resource-desc">Carbohydrates and how they affect weight loss.</div>
+          <span class="resource-btn">Download PDF</span>
+        </a>
+        <a class="resource-card" href="pdfs/Vitamins-and-Minerals-Guide1.pdf" target="_blank">
+          <div class="cover"><img class="cover-img" src="covers/vitamins-minerals.jpg" alt="" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="cover-css" style="display:none"><span class="cover-brand">Enchanted</span><span class="cover-title">Vitamins &amp; Minerals</span></div></div>
+          <div class="resource-name">Vitamins &amp; Minerals</div>
+          <div class="resource-desc">Key nutrients and where to find them.</div>
+          <span class="resource-btn">Download PDF</span>
+        </a>
+        <a class="resource-card" href="pdfs/Mediterranean-Meal-Plan-Template1.pdf" target="_blank">
+          <div class="cover"><img class="cover-img" src="covers/mediterranean-meal-plan.jpg" alt="" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="cover-css" style="display:none"><span class="cover-brand">Enchanted</span><span class="cover-title">Mediterranean Meal Plan</span></div></div>
+          <div class="resource-name">Mediterranean Meal Plan</div>
+          <div class="resource-desc">Anti-inflammatory 4-week meal plan.</div>
+          <span class="resource-btn">Download PDF</span>
+        </a>
+        <a class="resource-card" href="pdfs/Copy-of-Thyroid-Meal-Plan-Template_compressed.pdf" target="_blank">
+          <div class="cover"><img class="cover-img" src="covers/thyroid-meal-plan.jpg" alt="" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="cover-css" style="display:none"><span class="cover-brand">Enchanted</span><span class="cover-title">Thyroid Meal Plan</span></div></div>
+          <div class="resource-name">Thyroid Meal Plan</div>
+          <div class="resource-desc">A 4-week plan to support thyroid health.</div>
+          <span class="resource-btn">Download PDF</span>
+        </a>
+        <a class="resource-card" href="pdfs/Copy-of-Muscle-Gain-Plan-Template-1.pdf" target="_blank">
+          <div class="cover"><img class="cover-img" src="covers/muscle-gain-meal-plan.jpg" alt="" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="cover-css" style="display:none"><span class="cover-brand">Enchanted</span><span class="cover-title">4-Week Muscle Gain Meal Plan</span></div></div>
+          <div class="resource-name">4-Week Muscle Gain Meal Plan</div>
+          <div class="resource-desc">High-protein plan to preserve and build muscle.</div>
+          <span class="resource-btn">Download PDF</span>
+        </a>
+        <a class="resource-card" href="pdfs/SimpleHealthySmoothieGuide_compressed.pdf" target="_blank">
+          <div class="cover"><img class="cover-img" src="covers/smoothie-guide.jpg" alt="" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="cover-css" style="display:none"><span class="cover-brand">Enchanted</span><span class="cover-title">Smoothie Guide</span></div></div>
+          <div class="resource-name">Smoothie Guide</div>
+          <div class="resource-desc">Simple, healthy smoothie recipes.</div>
+          <span class="resource-btn">Download PDF</span>
+        </a>
+        <a class="resource-card" href="pdfs/Menopause-support.pdf" target="_blank">
+          <div class="cover"><img class="cover-img" src="covers/menopause-support.jpg" alt="" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="cover-css" style="display:none"><span class="cover-brand">Enchanted</span><span class="cover-title">Menopause Support</span></div></div>
+          <div class="resource-name">Menopause Support</div>
+          <div class="resource-desc">A complete guide for a healthy transition.</div>
+          <span class="resource-btn">Download PDF</span>
+        </a>
+      </div>
+
       <div style="font-family:'EB Garamond',Georgia,serif;font-size:1.1rem;color:var(--grey);margin-bottom:.75rem;padding-bottom:.35rem;border-bottom:2px solid var(--gold)">Exercise &amp; Wellness</div>
       <div class="resources-grid" style="margin-bottom:1.5rem">
-        <div class="resource-card">
-          <div class="resource-icon">🏋️</div>
+        <a class="resource-card" href="pdfs/Wellness_workout_chart_2.pdf" target="_blank">
+          <div class="cover"><img class="cover-img" src="covers/wellness-workout-chart.jpg" alt="" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="cover-css" style="display:none"><span class="cover-brand">Enchanted</span><span class="cover-title">Wellness Workout Chart</span></div></div>
           <div class="resource-name">Wellness Workout Chart</div>
-          <div class="resource-desc">A structured weekly exercise plan designed for patients in our weight loss program.</div>
-          <a href="pdfs/Wellness_workout_chart_2.pdf" target="_blank" class="resource-btn">Download PDF</a>
-        </div>
+          <div class="resource-desc">A structured weekly exercise plan.</div>
+          <span class="resource-btn">Download PDF</span>
+        </a>
+        <a class="resource-card" href="pdfs/Workout-Program.pdf" target="_blank">
+          <div class="cover"><img class="cover-img" src="covers/workout-program.jpg" alt="" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="cover-css" style="display:none"><span class="cover-brand">Enchanted</span><span class="cover-title">Workout Program</span></div></div>
+          <div class="resource-name">Workout Program</div>
+          <div class="resource-desc">Enchanted's full workout program.</div>
+          <span class="resource-btn">Download PDF</span>
+        </a>
       </div>
     </div>
 
